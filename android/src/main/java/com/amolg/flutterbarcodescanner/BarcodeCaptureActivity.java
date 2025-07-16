@@ -44,7 +44,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import android.graphics.Color;
 
 import com.amolg.flutterbarcodescanner.camera.CameraSource;
 import com.amolg.flutterbarcodescanner.camera.CameraSourcePreview;
@@ -106,6 +106,23 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
+
+        // Disable edge-to-edge layout
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+
+            getWindow().setDecorFitsSystemWindows(true);
+        } else {
+            // Android 10 and below
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        }
+
+        // Optional: set solid colors for status and navigation bars
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.BLACK); // or your app theme color
+            getWindow().setNavigationBarColor(Color.BLACK);
+        }
+        
         try {
             setContentView(R.layout.barcode_capture);
 
